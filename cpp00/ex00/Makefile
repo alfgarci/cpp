@@ -15,7 +15,7 @@ $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $< -I $(INC)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
 	rm -f $(OBJS)

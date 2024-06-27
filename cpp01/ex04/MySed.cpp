@@ -7,28 +7,33 @@ MySed::MySed(std::string filename) : _file(filename)
 
 void	MySed::replace(std::string toFind, std::string replace)
 {
-	std::ifstream infile(this->_file);
+	std::ifstream infile(this->_file.c_str());
 
-	if (infile.is_open())
+	if (!toFind.empty())
 	{
-		std::string tmpStr;
-		if (std::getline(infile, tmpStr, '\0'))
+		if (infile.is_open())
 		{
-			size_t pos = tmpStr.find(toFind);
-			while (pos != std::string::npos)
+			std::string tmpStr;
+			if (std::getline(infile, tmpStr, '\0'))
 			{
-				tmpStr.erase(pos, toFind.length());
-				tmpStr.insert(pos, replace);
-				pos = tmpStr.find(toFind);
+				size_t pos = tmpStr.find(toFind);
+				while (pos != std::string::npos)
+				{
+					tmpStr.erase(pos, toFind.length());
+					tmpStr.insert(pos, replace);
+					pos = tmpStr.find(toFind, pos + replace.length());
+				}
+				std::ofstream outfile(this->_replaceFile.c_str());
+				outfile << tmpStr;
+				outfile.close();
 			}
-			std::ofstream outfile(this->_replaceFile);
-			outfile << tmpStr;
-			outfile.close();
+			else
+				std::cout << "Empty file :(" << std::endl;
+			infile.close();
 		}
 		else
-			std::cout << "Empty file :(" << std::endl;
-		infile.close();
+			std::cout << "Can't open the file :(" << std::endl;
 	}
 	else
-		std::cout << "Can't open the file :(" << std::endl;
+		std::cout << "The second parameter cannot be empty." << std::endl;
 }

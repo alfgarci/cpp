@@ -1,11 +1,11 @@
-NAME =	harl
+NAME =	account
 
-SRCS =	main.cpp \
-		Harl.cpp
+SRCS =	tests.cpp \
+		Account.cpp
 
 OBJS =	$(SRCS:.cpp=.o)
 
-CXX =	c++
+CXX =	g++
 CXXFLAGS =	-Wall -Wextra -Werror -std=c++98
 
 .PHONY: all clean fclean re

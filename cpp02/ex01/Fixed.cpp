@@ -21,7 +21,7 @@ Fixed::Fixed(const int n)
 Fixed::Fixed(const float n)
 {
 	std::cout << "Float constructor called" << std::endl;
-	this->_fixedPointValue = std::round(n * ( 1 << _fractionalBits));
+	this->_fixedPointValue = round(n * ( 1 << _fractionalBits));
 }
 
 Fixed& Fixed::operator=(const Fixed &n)

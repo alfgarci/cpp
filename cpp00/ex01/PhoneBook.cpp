@@ -48,22 +48,31 @@ std::string	PhoneBook::_askValidInput(std::string ask) const
 	return (entrade);
 }
 
+std::string	PhoneBook::_intToString(int value) const
+{
+	std::stringstream ss;
+	ss << value;
+	return ss.str();
+}
+
 void	PhoneBook::addContact(void)
 {
-	static int	i;
+	static int	i = 0;
 	Contact		contact;
 
 	std::cout << "\033[1;92m";
-	_phoneBook[i % 8].setFirstName(_askValidInput("Enter fisrt name> "));
-	_phoneBook[i % 8].setLastName(_askValidInput("Enter last name> "));
-	_phoneBook[i % 8].setNickName(_askValidInput("Enter nick name> "));
-	_phoneBook[i % 8].setPhone(_askValidInput("Enter phone> "));
-	_phoneBook[i % 8].setSecret(_askValidInput("Enter the darkest secret> "));
-	_numContact = i % 8;
+	_phoneBook[i].setFirstName(_askValidInput("Enter fisrt name> "));
+	_phoneBook[i].setLastName(_askValidInput("Enter last name> "));
+	_phoneBook[i].setNickName(_askValidInput("Enter nick name> "));
+	_phoneBook[i].setPhone(_askValidInput("Enter phone> "));
+	_phoneBook[i].setSecret(_askValidInput("Enter the darkest secret> "));
 	std::cout << "\033[1;32m";
-	std::cout << _phoneBook[i % 8].getFirstName() << " added correctly :)" << std::endl;
+	std::cout << _phoneBook[i].getFirstName() << " added correctly :)" << std::endl;
 	std::cout << "\033[0m";
-	i++;
+
+	i = (i + 1) % 8;
+	if (_numContact < 8)
+		_numContact++;
 }
 
 void	PhoneBook::showPhoneBook(void) const
@@ -83,7 +92,7 @@ void	PhoneBook::showPhoneBook(void) const
 	while (++i < _numContact)
 	{
 		std::cout << "|";
-		std::cout << _rightAlignedStr(std::to_string(i + 1)) << "|";
+		std::cout << _rightAlignedStr(_intToString(i + 1)) << "|";
 		std::cout << _rightAlignedStr(_phoneBook[i].getFirstName()) << "|";
 		std::cout << _rightAlignedStr(_phoneBook[i].getLastName()) << "|";
 		std::cout << _rightAlignedStr(_phoneBook[i].getNickName())<< "|";
