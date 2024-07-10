@@ -23,7 +23,6 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 		this->_hitPoints = other._hitPoints;
 		this->_energyPoints = other._energyPoints;
 		this->_attackDamage = other._attackDamage;
-		std::cout << "ClapTrap " << _name << " has been copied (Overload)." << std::endl;
 	}
 	return *this;
 }
